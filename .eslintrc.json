@@ -1,0 +1,35 @@
+{
+  "env": {
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "airbnb-typescript/base"
+  ],
+  "rules": {
+    "semi": "off",
+    "no-console": "off",
+    "arrow-parens": "off",
+    "consistent-return": "off",
+    "class-methods-use-this": "off",
+    "max-len": ["error", { "code": 120 }],
+    "import/no-named-as-default-member": "off",
+    "template-curly-spacing": ["error", "always"],
+    "object-curly-newline": ["error", { "ImportDeclaration": { "multiline": true } }],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(info|warn|error)$/]",
+        "message": "Unexpected console log. If yous want to print message/warning/error during runtime, you can use console.[info|warn|error]."
+      }
+    ],
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
+  }
+}

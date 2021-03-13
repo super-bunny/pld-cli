@@ -1,0 +1,8 @@
+# Project files
+node_modules/
+dist/
+*.log
+.env
+
+# IDE files
+.idea/
