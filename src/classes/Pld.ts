@@ -2,6 +2,7 @@ import fsPromise from 'fs/promises'
 import compareVersions from 'compare-versions'
 import { assertType } from 'typescript-is'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
+import findJsonPldFile from '../modules/findJsonPldFile'
 
 export default class Pld {
   constructor(public content: IPld) {
@@ -90,5 +91,16 @@ export default class Pld {
     const content = JSON.parse(fileContent.toString())
 
     return new Pld(content)
+  }
+
+  /**
+   * Search for PLD file in given directory
+   */
+  static async fromDir(path: string): Promise<{ pld: Pld, path: string }> {
+    const pld = await findJsonPldFile(path)
+    return {
+      pld: new Pld(pld.content),
+      path: pld.path,
+    }
   }
 }
