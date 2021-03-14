@@ -22,6 +22,7 @@
     ]
   },
   "dependencies": {
+    "chalk": "^4.1.0",
     "commander": "^7.1.0",
     "compare-versions": "^3.6.0",
     "signale": "^1.4.0",
