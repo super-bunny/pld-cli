@@ -1,5 +1,6 @@
 import fsPromise from 'fs/promises'
 import compareVersions from 'compare-versions'
+import { assertType } from 'typescript-is'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
 
 export default class Pld {
@@ -75,6 +76,13 @@ export default class Pld {
           deliverable: subset.deliverable,
         })))
       .flat()
+  }
+
+  /**
+   * Return given content if is valid PLD content or throw an error
+   */
+  static verifyPldContent(content: object) {
+    return assertType<IPld>(content)
   }
 
   static async fromJsonFile(path: string): Promise<Pld> {
