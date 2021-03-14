@@ -20,6 +20,6 @@ export default async function findJsonPldFile(dirPath: string): Promise<{ path: 
         }
       })))
     .catch((error: AggregateError) => Promise.reject(
-      new AggregateError(error.errors, 'Can not find PLD file'),
+      new AggregateError(error.errors, 'Can not find pld file'),
     ))
 }
