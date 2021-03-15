@@ -4,6 +4,8 @@ import { assertType } from 'typescript-is'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
 import findJsonPldFile from '../modules/findJsonPldFile'
 
+export type UserStoryWithParents = UserStory & { deliverable: Deliverable, subset: Subset }
+
 export default class Pld {
   constructor(public content: IPld) {
   }
@@ -68,7 +70,7 @@ export default class Pld {
   /**
    * Get all PLD user stories
    */
-  get userStories(): Array<UserStory & { deliverable: Deliverable, subset: Subset }> {
+  get userStories(): Array<UserStoryWithParents> {
     return this.subsets
       .map(subset => subset.userStories
         .map(userStory => ({
