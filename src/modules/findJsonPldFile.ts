@@ -2,6 +2,7 @@ import fsPromise from 'fs/promises'
 import path from 'path'
 import { is } from 'typescript-is'
 import IPld from '../types/Pld'
+import chalk from 'chalk'
 
 export default async function findJsonPldFile(dirPath: string): Promise<{ path: string, content: IPld }> {
   const jsonFiles = await fsPromise.readdir(dirPath)
@@ -20,6 +21,6 @@ export default async function findJsonPldFile(dirPath: string): Promise<{ path: 
         }
       })))
     .catch((error: AggregateError) => Promise.reject(
-      new AggregateError(error.errors, 'Can not find pld file'),
+      new AggregateError(error.errors, `Can not find pld file in: ${ chalk.yellow(dirPath) }`),
     ))
 }
