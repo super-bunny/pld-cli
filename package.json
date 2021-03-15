@@ -2,6 +2,9 @@
   "name": "pld-cli",
   "version": "0.1.0",
   "main": "dist/index.js",
+  "bin": {
+    "pld": "dist/bin/index.js"
+  },
   "scripts": {
     "start": "node .",
     "build": "cross-env NODE_ENV=production rimraf dist && ttsc",
