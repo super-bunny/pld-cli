@@ -1,8 +1,8 @@
 import fsPromise from 'fs/promises'
 import path from 'path'
 import { is } from 'typescript-is'
-import IPld from '../types/Pld'
 import chalk from 'chalk'
+import IPld from '../types/Pld'
 
 export default async function findJsonPldFile(dirPath: string): Promise<{ path: string, content: IPld }> {
   const jsonFiles = await fsPromise.readdir(dirPath)
