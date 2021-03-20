@@ -1,1 +1,1 @@
-console.info('Hello world!')
+export * as cli from './cli'
