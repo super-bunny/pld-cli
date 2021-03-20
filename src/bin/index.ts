@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-console.log('Hello world!')
+import cli from '../cli'
+
+cli(process.argv)
