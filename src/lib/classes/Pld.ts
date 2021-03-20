@@ -83,6 +83,18 @@ export default class Pld {
   }
 
   /**
+   * Get PLD user stories with optional filters
+   */
+  getUserStories(filters?: UserStoryFilters) {
+    return this.userStories
+      .filter(userStory => (
+        filters?.status
+          ? filters.status.includes(userStory.status.toLowerCase())
+          : true
+      ))
+  }
+
+  /**
    * Return given content if is valid PLD content or throw an error
    */
   static verifyPldContent(content: object) {
@@ -106,4 +118,8 @@ export default class Pld {
       path: pld.path,
     }
   }
+}
+
+export interface UserStoryFilters {
+  status?: Array<UserStory['status'] | string>
 }
