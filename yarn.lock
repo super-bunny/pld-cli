@@ -444,7 +444,7 @@ blueimp-md5@^2.10.0:
 
 boxen@^5.0.0:
   version "5.0.0"
-  resolved "https://registry.npmjs.org/boxen/-/boxen-5.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/boxen/-/boxen-5.0.0.tgz#64fe9b16066af815f51057adcc800c3730120854"
   integrity sha512-5bvsqw+hhgUi3oYGK0Vf4WpIkyemp60WBInn7+WNfoISzAqk/HX4L7WNROq38E6UR/y3YADpv6pEm4BfkeEAdA==
   dependencies:
     ansi-align "^3.0.0"
