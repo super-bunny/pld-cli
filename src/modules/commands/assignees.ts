@@ -24,6 +24,7 @@ const commandOptions = {
 
 export default commander.createCommand('assignees')
   .arguments('<user>')
+  .description('list user stories assigned to specified user')
   .addOption(commandOptions.status)
   .action((user, options: Options, command) => getPld(command.parent?.opts())
     .then(pld => {

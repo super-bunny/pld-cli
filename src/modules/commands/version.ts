@@ -4,6 +4,7 @@ import logger from '../logger'
 import { scriptMode } from '../globals'
 
 export default commander.createCommand('version')
+  .description('get pld latest version number')
   .action((options, command) => getPld(command.parent?.opts())
     .then(pld => {
       if (scriptMode()) {

@@ -4,6 +4,7 @@ import logger from '../logger'
 import { scriptMode } from '../globals'
 
 export default commander.createCommand('duration')
+  .description('get estimated duration sum of pld user stories')
   .action((options, command) => getPld(command.parent?.opts())
     .then(pld => {
       if (scriptMode()) {
