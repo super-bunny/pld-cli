@@ -2,6 +2,7 @@ import commander, { Option } from 'commander'
 import getPld from '../getPld'
 import logger from '../logger'
 import { scriptMode } from '../globals'
+import printUserStoryCard from '../printUserStoryCard'
 
 const validStatus = ['to do', 'todo', 'wip', 'done', 'abandoned']
 
@@ -29,11 +30,6 @@ export default commander.createCommand('assignees')
       const assignees = pld.assignees(user, {
         status: options.status ? [options.status] : undefined,
       })
-        .map(({ type, ...userStory }) => ({
-          ...userStory,
-          subset: userStory.subset.name,
-          deliverable: userStory.deliverable.name,
-        }))
 
       if (assignees.length === 0) {
         logger.warn('No user story found')
@@ -43,7 +39,7 @@ export default commander.createCommand('assignees')
       if (scriptMode()) {
         logger.log(JSON.stringify({ assignees }, undefined, 2))
       } else {
-        console.info(assignees)
+        assignees.forEach(userStory => printUserStoryCard(userStory))
         logger.info(`${ assignees.length } user stories found`)
       }
     })
