@@ -6,6 +6,9 @@
   "bin": {
     "pld": "dist/src/bin/index.js"
   },
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "start": "node .",
     "build": "cross-env NODE_ENV=production rimraf dist && ttsc",
