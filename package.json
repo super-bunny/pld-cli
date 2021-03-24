@@ -21,7 +21,8 @@
     "dev": "cross-env NODE_ENV=development ts-node-dev -C ttypescript --respawn --transpile-only -- src/index.ts",
     "lint": "eslint --fix .",
     "test": "ava -v",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "engines": {
     "node": ">=15"
