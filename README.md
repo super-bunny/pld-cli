@@ -1,8 +1,14 @@
 # PLD CLI
 
-CLI that groups some utilities for PLD files 🔧
+CLI that groups some utilities for PLD (Project Log Document) files 🔧
 
 ⚠ PLD files must respect this JSON schema: [super-bunny/pld-json-schema](https://github.com/super-bunny/pld-json-schema)
+
+## Features
+
+- ✨ Pretty colored command output
+- 🔎 Auto search PLD file in the current directory (or specified one)
+- 📜 Script mode for easy use in your scripts (will print command output in JSON and disable extra message logs)
 
 ## Installation
 
