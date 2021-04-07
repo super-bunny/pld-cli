@@ -1,4 +1,5 @@
 import { Command } from 'commander'
+import updateNotifier from './modules/updateNotifier'
 import versionCommand from './modules/commands/version'
 import durationCommand from './modules/commands/duration'
 import assigneesCommand from './modules/commands/assignees'
@@ -20,6 +21,8 @@ export default async function cli(argv: string[]) {
   program.addCommand(assigneesCommand)
 
   try {
+    updateNotifier()
+
     await program.parseAsync(argv)
   } catch (e) {
     logger.error(e.message)
