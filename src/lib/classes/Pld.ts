@@ -40,16 +40,6 @@ export default class Pld {
   }
 
   /**
-   * Get all user stories assigned to given user
-   */
-  assignees(user: string, filters?: UserStoryFilters): UserStoryWithParents[] {
-    return this.getUserStories(filters)
-      .filter(userStory => userStory.assignments
-        ?.map(assignment => assignment.toLowerCase())
-        ?.includes(user.toLowerCase()))
-  }
-
-  /**
    * Get all PLD deliverables
    */
   get deliverables(): Deliverable[] {
