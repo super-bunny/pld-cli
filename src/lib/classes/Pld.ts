@@ -91,10 +91,22 @@ export default class Pld {
       return this.userStories
     }
 
+    const assignmentsFilter = (userStory: UserStoryWithParents, users: string[] | string): boolean => {
+      const assignments = userStory.assignments
+        ?.map(assignment => assignment.toLowerCase())
+
+      if (Array.isArray(users)) {
+        return users.some(user => assignments?.includes(user))
+      }
+
+      return assignments?.includes(users) ?? false
+    }
+
     const filteredUserStories = this.userStories
       .filter(userStory => (
         [
           filters?.status?.includes(userStory.status.toLowerCase()) ?? true,
+          filters.assignments ? assignmentsFilter(userStory, filters.assignments) : true,
         ].every(filterResult => filterResult)
       ))
 
@@ -144,6 +156,7 @@ export default class Pld {
 }
 
 export interface UserStoryFilters {
+  assignments?: UserStory['assignments'] | string
   status?: Array<UserStory['status'] | string>
   search?: string
 }
