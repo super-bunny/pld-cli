@@ -87,12 +87,22 @@ export default class Pld {
    * Get PLD user stories with optional filters
    */
   getUserStories(filters?: UserStoryFilters) {
-    return this.userStories
+    if (!filters) {
+      return this.userStories
+    }
+
+    const filteredUserStories = this.userStories
       .filter(userStory => (
-        filters?.status
-          ? filters.status.includes(userStory.status.toLowerCase())
-          : true
+        [
+          filters?.status?.includes(userStory.status.toLowerCase()) ?? true,
+        ].every(filterResult => filterResult)
       ))
+
+    if (!filters.search) {
+      return filteredUserStories
+    }
+
+    return this.searchUserStories(filters.search, filteredUserStories)
   }
 
   searchUserStories(search: string, userStories: UserStoryWithParents[] = this.userStories): UserStoryWithParents[] {
@@ -135,4 +145,5 @@ export default class Pld {
 
 export interface UserStoryFilters {
   status?: Array<UserStory['status'] | string>
+  search?: string
 }
