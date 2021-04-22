@@ -1,6 +1,7 @@
 import fsPromise from 'fs/promises'
 import compareVersions from 'compare-versions'
 import { assertType } from 'typescript-is'
+import Fuse from 'fuse.js'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
 import findJsonPldFile from '../modules/findJsonPldFile'
 
@@ -92,6 +93,18 @@ export default class Pld {
           ? filters.status.includes(userStory.status.toLowerCase())
           : true
       ))
+  }
+
+  searchUserStories(search: string, userStories: UserStoryWithParents[] = this.userStories): UserStoryWithParents[] {
+    const fuse = new Fuse(userStories, {
+      keys: ['name'],
+      threshold: 0.3,
+      minMatchCharLength: 3,
+      ignoreLocation: true,
+      useExtendedSearch: true,
+    })
+
+    return fuse.search(search).map(result => result.item)
   }
 
   /**
