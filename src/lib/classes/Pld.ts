@@ -29,11 +29,10 @@ export default class Pld {
 
   get distribution(): Record<string, number> {
     const distribution: Record<string, number> = {}
-    const getValueOrZero = (key: string) => distribution[key] ?? 0
 
     this.userStories.forEach(userStory => userStory.assignments
       ?.forEach(user => {
-        distribution[user] = getValueOrZero(user) + userStory.estimatedDuration
+        distribution[user] = (distribution[user] ?? 0) + userStory.estimatedDuration
       }))
 
     return distribution
