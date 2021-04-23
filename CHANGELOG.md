@@ -12,7 +12,11 @@
 - New `user-story` command: group user story related commands
     - `list` sub command: list user stories with optional filters
     - `search` sub command: alias for `list` command with `--search` option
-    
+
+
+- New `distribution` command: get user stories duration distribution
+
+
 - `assignees` now act as an alias for `user-story list` command with `--assignments` option
 
 **BREAKING CHANGES:**
