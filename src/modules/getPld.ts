@@ -4,7 +4,7 @@ import GlobalOptions from '../types/GlobalCmdOptions'
 import Pld from '../lib/classes/Pld'
 import { Spinner } from './logger'
 
-export default async function getPld(options: GlobalOptions) {
+export default async function getPld(options: GlobalOptions): Promise<Pld> {
   if (options.file) {
     return Pld.fromJsonFile(options.file)
   }
