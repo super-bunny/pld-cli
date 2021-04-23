@@ -107,7 +107,10 @@ export default class Pld {
     return this.searchUserStories(filters.search, filteredUserStories)
   }
 
-  searchUserStories(search: string, userStories: UserStoryWithParents[] = this.userStories): UserStoryWithParents[] {
+  searchUserStories(
+    search: string[] | string,
+    userStories: UserStoryWithParents[] = this.userStories,
+  ): UserStoryWithParents[] {
     const fuse = new Fuse(userStories, {
       keys: ['name'],
       threshold: 0.3,
@@ -116,7 +119,8 @@ export default class Pld {
       useExtendedSearch: true,
     })
 
-    return fuse.search(search).map(result => result.item)
+    return fuse.search(Array.isArray(search) ? search.join(' ') : search)
+      .map(result => result.item)
   }
 
   /**
@@ -148,5 +152,5 @@ export default class Pld {
 export interface UserStoryFilters {
   assignments?: UserStory['assignments'] | string
   status?: Array<UserStory['status'] | string>
-  search?: string
+  search?: string[] | string
 }

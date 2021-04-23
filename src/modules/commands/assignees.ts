@@ -13,5 +13,4 @@ export default commander.createCommand('assignees')
   .action((user: string[], options: Options, command) => commandHandler(command.parent?.opts(), {
     ...options,
     assignments: user,
-    search: options.search?.join(' '),
   }))
