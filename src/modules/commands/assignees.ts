@@ -11,11 +11,10 @@ export default commander.createCommand('assignees')
   .action((user, options: Options, command) => commandHandler(command.parent?.opts(), {
     ...options,
     assignments: [user],
-    status: options.status ? [options.status] : undefined,
     search: options.search?.join(' '),
   }))
 
 export interface Options {
-  status?: string
+  status?: string[]
   search?: string[]
 }
