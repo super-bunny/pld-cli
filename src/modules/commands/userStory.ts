@@ -5,5 +5,5 @@ import searchCommand from './userStory/search'
 export default commander.createCommand('user-story')
   .aliases(['us', 'story'])
   .description('user stories related commands')
-  .addCommand(listCommand)
+  .addCommand(listCommand, { isDefault: true })
   .addCommand(searchCommand)
