@@ -10,7 +10,7 @@
 **Commands:**
 
 - New `user-story` command: group user story related commands
-    - `list` sub command: list user stories with optional filters
+    - `list` sub command (default): list user stories with optional filters
     - `search` sub command: alias for `list` command with `--search` option
 
 
