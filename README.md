@@ -1,5 +1,9 @@
 # PLD CLI
 
+[![Last commit](https://img.shields.io/github/last-commit/super-bunny/pld-cli/dev)](https://github.com/super-bunny/pld-cli/tree/dev)
+[![NPM Version](http://img.shields.io/npm/v/pld-cli?style=flat)](https://www.npmjs.org/package/pld-cli)
+[![Dependencies status](https://img.shields.io/david/super-bunny/pld-cli)](https://david-dm.org/super-bunny/pld-cli)
+
 CLI that groups some utilities for PLD (Project Log Document) files.
 
 ⚠ PLD files must respect this JSON schema: [super-bunny/pld-json-schema](https://github.com/super-bunny/pld-json-schema).
