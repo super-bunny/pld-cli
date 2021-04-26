@@ -2,6 +2,9 @@
 
 ## [Unreleased](https://github.com/super-bunny/pld-cli/tree/dev)
 
+
+## [0.2.0](https://github.com/super-bunny/pld-cli/releases/tag/v0.2.0) (2021-04-26)
+
 **Features:**
 
 - CLI update notifier
