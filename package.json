@@ -1,6 +1,10 @@
 {
   "name": "pld-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/super-bunny/pld-cli.git"
+  },
   "author": {
     "name": "Clovis de Villars",
     "email": "clovis.devillars@gmail.com",
@@ -40,15 +44,16 @@
     "chalk": "^4.1.0",
     "commander": "^7.1.0",
     "compare-versions": "^3.6.0",
+    "console-table-printer": "^2.8.2",
     "figures": "^3.2.0",
+    "fuse.js": "^6.4.6",
     "ora": "^5.3.0",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.5",
-    "typescript-is": "^0.18.1"
+    "typescript-is": "^0.18.1",
+    "update-notifier": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.26",
-    "@types/signale": "^1.4.1",
+    "@types/update-notifier": "^5.0.0",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "ava": "^3.14.0",
@@ -58,14 +63,18 @@
     "eslint-plugin-import": "^2.22.1",
     "husky": "^5.2.0",
     "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
     "ts-node-dev": "^1.0.0",
-    "ttypescript": "^1.5.12"
+    "ttypescript": "^1.5.12",
+    "typescript": "^4.2.4"
   },
   "keywords": [
     "cli",
     "pld",
     "pld-cli",
+    "project log",
+    "project log document",
     "json-pld",
-    "pld-jso-schema"
+    "pld-json-schema"
   ]
 }

@@ -1,6 +1,7 @@
 import fsPromise from 'fs/promises'
 import compareVersions from 'compare-versions'
 import { assertType } from 'typescript-is'
+import Fuse from 'fuse.js'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
 import findJsonPldFile from '../modules/findJsonPldFile'
 
@@ -28,24 +29,13 @@ export default class Pld {
 
   get distribution(): Record<string, number> {
     const distribution: Record<string, number> = {}
-    const getValueOrZero = (key: string) => distribution[key] ?? 0
 
     this.userStories.forEach(userStory => userStory.assignments
       ?.forEach(user => {
-        distribution[user] = getValueOrZero(user) + userStory.estimatedDuration
+        distribution[user] = (distribution[user] ?? 0) + userStory.estimatedDuration
       }))
 
     return distribution
-  }
-
-  /**
-   * Get all user stories assigned to given user
-   */
-  assignees(user: string, filters?: UserStoryFilters): UserStoryWithParents[] {
-    return this.getUserStories(filters)
-      .filter(userStory => userStory.assignments
-        ?.map(assignment => assignment.toLowerCase())
-        ?.includes(user.toLowerCase()))
   }
 
   /**
@@ -86,12 +76,50 @@ export default class Pld {
    * Get PLD user stories with optional filters
    */
   getUserStories(filters?: UserStoryFilters) {
-    return this.userStories
+    if (!filters) {
+      return this.userStories
+    }
+
+    const assignmentsFilter = (userStory: UserStoryWithParents, users: string[] | string): boolean => {
+      const assignments = userStory.assignments
+        ?.map(assignment => assignment.toLowerCase())
+
+      if (Array.isArray(users)) {
+        return users.some(user => assignments?.includes(user))
+      }
+
+      return assignments?.includes(users) ?? false
+    }
+
+    const filteredUserStories = this.userStories
       .filter(userStory => (
-        filters?.status
-          ? filters.status.includes(userStory.status.toLowerCase())
-          : true
+        [
+          filters?.status?.includes(userStory.status.toLowerCase()) ?? true,
+          filters.assignments ? assignmentsFilter(userStory, filters.assignments) : true,
+        ].every(filterResult => filterResult)
       ))
+
+    if (!filters.search) {
+      return filteredUserStories
+    }
+
+    return this.searchUserStories(filters.search, filteredUserStories)
+  }
+
+  searchUserStories(
+    search: string[] | string,
+    userStories: UserStoryWithParents[] = this.userStories,
+  ): UserStoryWithParents[] {
+    const fuse = new Fuse(userStories, {
+      keys: ['name'],
+      threshold: 0.3,
+      minMatchCharLength: 3,
+      ignoreLocation: true,
+      useExtendedSearch: true,
+    })
+
+    return fuse.search(Array.isArray(search) ? search.join(' ') : search)
+      .map(result => result.item)
   }
 
   /**
@@ -121,5 +149,7 @@ export default class Pld {
 }
 
 export interface UserStoryFilters {
+  assignments?: UserStory['assignments'] | string
   status?: Array<UserStory['status'] | string>
+  search?: string[] | string
 }

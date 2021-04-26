@@ -2,6 +2,7 @@ import chalk from 'chalk'
 import boxen from 'boxen'
 import { UserStoryWithParents } from '../lib/classes/Pld'
 import { UserStory } from '../lib/types/Pld'
+import wrapLine from './print/wrapLine'
 
 const newLine = '\n'
 
@@ -10,7 +11,9 @@ const formatName = (name: UserStory['name']): string => chalk.underline(chalk.ye
 const formatId = (id?: UserStory['id']): string => (id ? chalk.gray(`#${ id }`) : '')
 
 const formatDefinitionsOfDone = (definitionsOfDone: UserStory['definitionOfDone']): string => definitionsOfDone
-  .map(definitionOfDone => ` ${ chalk.white('-') } ${ chalk.yellow(definitionOfDone) }`)
+  .map(definitionOfDone => ` ${ chalk.white('-') } ${ chalk.yellow(wrapLine(definitionOfDone, {
+    continuationIndent: 3,
+  }).join(newLine)) }`)
   .join(newLine)
 
 const formatEstimatedDuration = (estimatedDuration: UserStory['estimatedDuration']): string => (

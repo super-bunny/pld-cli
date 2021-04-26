@@ -8,7 +8,7 @@ export default commander.createCommand('duration')
   .action((options, command) => getPld(command.parent?.opts())
     .then(pld => {
       if (scriptMode()) {
-        logger.log(JSON.stringify({ duration: pld.duration }))
+        logger.log(JSON.stringify({ duration: pld.duration }, undefined, 2))
       } else {
         logger.log(`${ pld.duration } man-days`)
       }
