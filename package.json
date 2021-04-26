@@ -1,5 +1,6 @@
 {
   "name": "pld-cli",
+  "description": "CLI that groups some utilities for PLD (Project Log Document) files",
   "version": "0.2.0",
   "repository": {
     "type": "git",
