@@ -1,7 +1,7 @@
 import getPld from '../../../getPld'
 import logger from '../../../logger'
 import { scriptMode } from '../../../globals'
-import printUserStoryCard from '../../../printUserStoryCard'
+import printUserStoryCard from '../../../print/userStory'
 import GlobalOptions from '../../../../types/GlobalCmdOptions'
 import { UserStoryFilters } from '../../../../lib/classes/Pld'
 

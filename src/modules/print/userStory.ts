@@ -1,8 +1,8 @@
 import chalk from 'chalk'
 import boxen from 'boxen'
-import { UserStoryWithParents } from '../lib/classes/Pld'
-import { UserStory } from '../lib/types/Pld'
-import wrapLine from './print/wrapLine'
+import { UserStoryWithParents } from '../../lib/classes/Pld'
+import { UserStory } from '../../lib/types/Pld'
+import wrapLine from './wrapLine'
 
 const newLine = '\n'
 
