@@ -6,24 +6,24 @@ import wrapLine from './wrapLine'
 
 const newLine = '\n'
 
-const formatName = (name: UserStory['name']): string => chalk.underline(chalk.yellowBright(name))
+export const formatName = (name: UserStory['name']): string => chalk.underline(chalk.yellowBright(name))
 
-const formatId = (id?: UserStory['id']): string => (id ? chalk.gray(`#${ id }`) : '')
+export const formatId = (id?: UserStory['id']): string => (id ? chalk.gray(`#${ id }`) : '')
 
-const formatDefinitionsOfDone = (definitionsOfDone: UserStory['definitionOfDone']): string => definitionsOfDone
+export const formatDefinitionsOfDone = (definitionsOfDone: UserStory['definitionOfDone']): string => definitionsOfDone
   .map(definitionOfDone => ` ${ chalk.white('-') } ${ chalk.yellow(wrapLine(definitionOfDone, {
     continuationIndent: 3,
   }).join(newLine)) }`)
   .join(newLine)
 
-const formatEstimatedDuration = (estimatedDuration: UserStory['estimatedDuration']): string => (
+export const formatEstimatedDuration = (estimatedDuration: UserStory['estimatedDuration']): string => (
   `${ chalk.yellow(estimatedDuration) } ${ chalk.white('man-day(s)') }`)
 
-const formatAssignments = (assignments: UserStory['assignments']): string | undefined => assignments
+export const formatAssignments = (assignments: UserStory['assignments']): string | undefined => assignments
   ?.map(assignment => chalk.green(assignment))
   ?.join(', ')
 
-const formatStatus = (status: UserStory['status']): string => {
+export const formatStatus = (status: UserStory['status']): string => {
   switch (status) {
     case 'Abandoned':
       return chalk.redBright(status)
