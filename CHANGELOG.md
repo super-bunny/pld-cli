@@ -4,7 +4,10 @@
 
 **Commands:**
 
-- New `tree` command: print pld as tree (deliverables, subsets and user stories title
+- New `tree` command: print pld as tree (deliverables, subsets and user stories title)
+- New `edit` command: group commands to edit pld file
+    - `generate-ids` sub command: generate id for each user story and write it to the pld file
+
 
 ## [0.2.0](https://github.com/super-bunny/pld-cli/releases/tag/v0.2.0) (2021-04-26)
 
