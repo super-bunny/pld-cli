@@ -14,7 +14,7 @@ export interface UserStoryIdGenerationOption {
 }
 
 export default class Pld {
-  constructor(public content: IPld) {
+  constructor(public content: IPld, public filePath?: string) {
   }
 
   /**
@@ -198,18 +198,15 @@ export default class Pld {
     const fileContent = await fsPromise.readFile(path)
     const content = JSON.parse(fileContent.toString())
 
-    return new Pld(content)
+    return new Pld(content, path)
   }
 
   /**
    * Search for PLD file in given directory
    */
-  static async fromDir(path: string): Promise<{ pld: Pld, path: string }> {
+  static async fromDir(path: string): Promise<Pld> {
     const pld = await findJsonPldFile(path)
-    return {
-      pld: new Pld(pld.content),
-      path: pld.path,
-    }
+    return new Pld(pld.content, pld.path)
   }
 }
 

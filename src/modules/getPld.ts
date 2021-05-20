@@ -11,13 +11,13 @@ export default async function getPld(options: GlobalOptions): Promise<Pld> {
 
   const dir = options.dir ?? process.cwd()
   const spinner = Spinner(`Searching pld' file in: ${ chalk.yellow(dir) }`)?.start()
-  const { pld, path } = await Pld.fromDir(dir)
+  const pld = await Pld.fromDir(dir)
     .catch(error => {
       spinner?.stop()
       throw error
     })
 
-  spinner?.succeed(`Using pld file: ${ chalk.yellow(options.dir ? resolve(dir, path) : path) }`)
+  spinner?.succeed(`Using pld file: ${ chalk.yellow(options.dir ? resolve(dir, pld.filePath!) : pld.filePath) }`)
 
   return pld
 }
