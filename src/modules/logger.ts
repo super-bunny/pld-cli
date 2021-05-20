@@ -10,4 +10,5 @@ export default {
   info: (message: string) => console.info(chalk.cyanBright(`${ figures.info } ${ message }`)),
   warn: (message: string) => console.warn(chalk.yellowBright(`${ figures.warning } ${ message }`)),
   error: (message: string) => console.error(chalk.redBright(`${ figures.cross } ${ message }`)),
+  success: (message: string) => console.info(chalk.greenBright(`${ figures.tick } ${ message }`)),
 }
