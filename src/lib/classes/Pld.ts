@@ -122,6 +122,14 @@ export default class Pld {
       .map(result => result.item)
   }
 
+  transformUserStories(callback: (userStory: UserStory, subset: Subset, deliverable: Deliverable) => UserStory): void {
+    for (const deliverable of this.content.deliverables) {
+      for (const subset of deliverable.subsets) {
+        subset.userStories = subset.userStories.map(userStory => callback(userStory, subset, deliverable))
+      }
+    }
+  }
+
   /**
    * Return given content if is valid PLD content or throw an error
    */
