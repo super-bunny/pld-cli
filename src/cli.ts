@@ -6,6 +6,7 @@ import assigneesCommand from './modules/commands/assignees'
 import distributionCommand from './modules/commands/distribution'
 import treeCommand from './modules/commands/tree'
 import userStoryCommand from './modules/commands/userStory'
+import editCommand from './modules/commands/edit'
 import globalOptions from './modules/globalCmdOptions'
 import { version } from '../package.json'
 import logger from './modules/logger'
@@ -25,6 +26,7 @@ export default async function cli(argv: string[]) {
   program.addCommand(distributionCommand)
   program.addCommand(treeCommand)
   program.addCommand(userStoryCommand)
+  program.addCommand(editCommand)
 
   try {
     updateNotifier()
