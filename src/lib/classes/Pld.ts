@@ -2,10 +2,16 @@ import fsPromise from 'fs/promises'
 import compareVersions from 'compare-versions'
 import { assertType } from 'typescript-is'
 import Fuse from 'fuse.js'
+import { v4 as uuidV4 } from 'uuid'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
 import findJsonPldFile from '../modules/findJsonPldFile'
 
 export type UserStoryWithParents = UserStory & { deliverable: Deliverable, subset: Subset }
+
+export interface UserStoryIdGenerationOption {
+  overwrite?: boolean
+  idGenerator?: (userStory: UserStory) => string
+}
 
 export default class Pld {
   constructor(public content: IPld) {
@@ -128,6 +134,57 @@ export default class Pld {
         subset.userStories = subset.userStories.map(userStory => callback(userStory, subset, deliverable))
       }
     }
+  }
+
+  /**
+   * Generate id for all user stories in the PLD.
+   * Return number of new ids generated.
+   */
+  generateUserStoriesIds(options?: UserStoryIdGenerationOption): number {
+    const { overwrite, idGenerator } = options ?? {}
+    const currentIdList = overwrite ? [] : this.userStories.map(story => story.id)
+    let generatedIdCount = 0
+
+    const generateId = (userStory: UserStory, tryCount = 0, maxRetry = 6): string => {
+      if (!overwrite && userStory.id) {
+        return userStory.id
+      }
+
+      if (idGenerator) {
+        const id = idGenerator(userStory)
+        if (currentIdList.includes(id)) {
+          throw new Error('Provided id generator return an already existing id')
+        }
+        return id
+      }
+
+      const id = uuidV4().slice(0, 6)
+      if (currentIdList.includes(id)) {
+        if (tryCount >= maxRetry) {
+          throw new Error('Maximum id generation retry reached,'
+            + ' seems somethings went wrong with the default id generator')
+        }
+        return generateId(userStory, tryCount + 1)
+      }
+
+      return id
+    }
+
+    this.transformUserStories(userStory => {
+      const newId = generateId(userStory)
+
+      if (newId !== userStory.id) {
+        currentIdList.push(newId)
+        generatedIdCount += 1
+      }
+
+      return {
+        ...userStory,
+        id: newId,
+      }
+    })
+
+    return generatedIdCount
   }
 
   /**
