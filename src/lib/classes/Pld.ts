@@ -6,6 +6,8 @@ import { v4 as uuidV4 } from 'uuid'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
 import findJsonPldFile from '../modules/findJsonPldFile'
 
+const TAB_SIZE = 2
+
 export type UserStoryWithParents = UserStory & { deliverable: Deliverable, subset: Subset }
 
 export interface UserStoryIdGenerationOption {
@@ -185,6 +187,18 @@ export default class Pld {
     })
 
     return generatedIdCount
+  }
+
+  async saveToJsonFile(options?: { tabSize?: number, filePath?: string }) {
+    const { tabSize = TAB_SIZE, filePath = this.filePath } = options ?? {}
+
+    if (!filePath) {
+      throw new Error('No pld file path provided')
+    }
+
+    const jsonPld = JSON.stringify(this.content, undefined, tabSize)
+
+    return fsPromise.writeFile(filePath, `${ jsonPld }\n`)
   }
 
   /**
