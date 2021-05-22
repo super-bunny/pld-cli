@@ -6,6 +6,7 @@ import { v4 as uuidV4 } from 'uuid'
 import semver from 'semver'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
 import findJsonPldFile from '../modules/findJsonPldFile'
+import InvalidPldSemVersion from './errors/InvalidPldSemVersion'
 
 const TAB_SIZE = 2
 
@@ -38,7 +39,10 @@ export default class Pld {
     const invalidVersion = this.content.versions.find(version => !semver.valid(version.version))
 
     if (invalidVersion) {
-      throw new Error(`Invalid semantic version number found in pld file versions: ${ invalidVersion.version }`)
+      throw new InvalidPldSemVersion(
+        `Invalid semantic version number found in pld file versions: ${ invalidVersion.version }`,
+        invalidVersion,
+      )
     }
 
     return this.content.versions
