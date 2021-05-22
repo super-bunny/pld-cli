@@ -39,7 +39,7 @@ export default class Pld {
   }
 
   get lastVersion(): Version | undefined {
-    return this.versions.pop()
+    return this.versions[this.content.versions.length - 1]
   }
 
   get duration(): number {
