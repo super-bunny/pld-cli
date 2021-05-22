@@ -16,6 +16,8 @@ export interface UserStoryIdGenerationOption {
   idGenerator?: (userStory: UserStory) => string
 }
 
+export type VersionNumberLevel = 'major' | 'minor' | 'patch'
+
 export interface VersionInfo {
   version: string
   date: string | Date
@@ -156,6 +158,23 @@ export default class Pld {
     this.content.versions.push(newVersion)
 
     return newVersion
+  }
+
+  /**
+   * Create new version incremented by given level from latest PLD version
+   */
+  incrementPldVersion(versionInfo: Omit<VersionInfo, 'version'>, level: VersionNumberLevel = 'patch'): Version {
+    const lastVersionNumber = this.lastVersion?.version
+    const parsedVersionNumber = semver.parse(lastVersionNumber)
+
+    if (!parsedVersionNumber) {
+      throw new Error('Invalid semantic version number in latest version from pld file')
+    }
+
+    return this.addVersion({
+      ...versionInfo,
+      version: parsedVersionNumber?.inc(level).raw,
+    })
   }
 
   transformUserStories(callback: (userStory: UserStory, subset: Subset, deliverable: Deliverable) => UserStory): void {
