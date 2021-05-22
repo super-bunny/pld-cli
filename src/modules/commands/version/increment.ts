@@ -1,10 +1,10 @@
 import commander from 'commander'
+import chalk from 'chalk'
 import getPld from '../../getPld'
 import logger from '../../logger'
 import { scriptMode } from '../../globals'
 import printVersionCard from '../../print/version'
 import { VersionNumberLevel } from '../../../lib/classes/Pld'
-import chalk from 'chalk'
 
 export interface Options {
   level?: VersionNumberLevel
