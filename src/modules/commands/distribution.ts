@@ -44,8 +44,4 @@ export default commander.createCommand('distribution')
       } else {
         printDistribution(pld.distribution)
       }
-    })
-    .catch((error: AggregateError) => {
-      logger.error(error.message)
-      process.exit(1)
     }))

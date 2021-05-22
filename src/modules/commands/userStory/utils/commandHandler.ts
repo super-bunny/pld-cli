@@ -25,8 +25,4 @@ export default async function commandHandler<T extends UserStoryFilters>(
         logger.info(`${ userStories.length } user stories found`)
       }
     })
-    .catch((error: AggregateError) => {
-      logger.error(error.message)
-      process.exit(1)
-    })
 }

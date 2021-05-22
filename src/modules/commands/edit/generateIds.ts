@@ -33,8 +33,4 @@ export default commander.createCommand('generate-ids')
 
       logger.info(`${ generatedIdCount } id(s) generated`)
       logger.success(`Modifications written to pld file: ${ chalk.yellow(pld.filePath) }`)
-    })
-    .catch((error: AggregateError) => {
-      logger.error(error.message)
-      process.exit(1)
     }))

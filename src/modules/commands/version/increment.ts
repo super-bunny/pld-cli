@@ -51,8 +51,4 @@ export default commander.createCommand('increment')
         await pld.saveToJsonFile()
         logger.success(`Modifications written to pld file: ${ chalk.yellow(pld.filePath) }`)
       }
-    })
-    .catch((error: AggregateError) => {
-      logger.error(error.message)
-      process.exit(1)
     }))

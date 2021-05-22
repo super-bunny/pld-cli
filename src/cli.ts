@@ -9,7 +9,7 @@ import userStoryCommand from './modules/commands/userStory'
 import editCommand from './modules/commands/edit'
 import globalOptions from './modules/globalCmdOptions'
 import { version } from '../package.json'
-import logger from './modules/logger'
+import commandErrorHandler from './modules/commandErrorHandler'
 
 export default async function cli(argv: string[]) {
   const program = new Command()
@@ -33,7 +33,6 @@ export default async function cli(argv: string[]) {
 
     await program.parseAsync(argv)
   } catch (e) {
-    logger.error(e.message)
-    process.exit(1)
+    commandErrorHandler(e)
   }
 }

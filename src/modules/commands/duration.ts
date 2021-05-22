@@ -12,8 +12,4 @@ export default commander.createCommand('duration')
       } else {
         logger.log(`${ pld.duration } man-days`)
       }
-    })
-    .catch((error: AggregateError) => {
-      logger.error(error.message)
-      process.exit(1)
     }))
