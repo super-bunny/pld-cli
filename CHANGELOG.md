@@ -4,6 +4,9 @@
 
 **Commands:**
 
+- Transform `version` command into sub commands group
+    - `latest` sub command (default) replace previous `version` command
+    - `increment` sub command: create new version incremented by given level from latest pld version
 - New `tree` command: print pld as tree (deliverables, subsets and user stories title)
 - New `edit` command: group commands to edit pld file
     - `generate-ids` sub command: generate id for each user story and write it to the pld file
