@@ -11,6 +11,9 @@
 - New `edit` command: group commands to edit pld file
     - `generate-ids` sub command: generate id for each user story and write it to the pld file
 
+**Fix:**
+
+- Fix bad behavior on invalid semantic version number from pld content versions
 
 ## [0.2.0](https://github.com/super-bunny/pld-cli/releases/tag/v0.2.0) (2021-04-26)
 
