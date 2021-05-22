@@ -15,7 +15,7 @@ CLI that groups some utilities for PLD (Project Log Document) files.
 - 🧰 Utility commands (version getter, work time distribution ...)
 - 🏷 User story filters and search
 - ✨ Pretty colored command output
-- 📜 Script mode for easily parse command output \
+- 📜 Script mode to easily parse command output \
   (will print command output in JSON and disable extra message logs)
 
 ## Installation
