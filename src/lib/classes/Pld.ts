@@ -243,9 +243,13 @@ export default class Pld {
       throw new Error('No pld file path provided')
     }
 
-    const jsonPld = JSON.stringify(this.content, undefined, tabSize)
+    const jsonPld = this.toJSON(tabSize)
 
     return fsPromise.writeFile(filePath, `${ jsonPld }\n`)
+  }
+
+  toJSON(tabSize: number = TAB_SIZE): string {
+    return JSON.stringify(this.content, undefined, tabSize)
   }
 
   /**
