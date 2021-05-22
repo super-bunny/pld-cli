@@ -31,9 +31,16 @@ export default class Pld {
   }
 
   /**
-   * Return versions sorted by version number
+   * Return versions sorted by version number.
+   * Will throw an error if invalid semantic version number is found in PLD content.
    */
   get versions(): Version[] {
+    const invalidVersion = this.content.versions.find(version => !semver.valid(version.version))
+
+    if (invalidVersion) {
+      throw new Error(`Invalid semantic version number found in pld file versions: ${ invalidVersion.version }`)
+    }
+
     return this.content.versions
       .sort((versionA, versionB) => compareVersions(versionA.version, versionB.version))
   }
