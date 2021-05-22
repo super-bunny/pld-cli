@@ -3,6 +3,7 @@ import compareVersions from 'compare-versions'
 import { assertType } from 'typescript-is'
 import Fuse from 'fuse.js'
 import { v4 as uuidV4 } from 'uuid'
+import semver from 'semver'
 import IPld, { Deliverable, Subset, UserStory, Version } from '../types/Pld'
 import findJsonPldFile from '../modules/findJsonPldFile'
 
@@ -13,6 +14,14 @@ export type UserStoryWithParents = UserStory & { deliverable: Deliverable, subse
 export interface UserStoryIdGenerationOption {
   overwrite?: boolean
   idGenerator?: (userStory: UserStory) => string
+}
+
+export interface VersionInfo {
+  version: string
+  date: string | Date
+  authors: Array<string>
+  sections: string
+  comment: string
 }
 
 export default class Pld {
@@ -128,6 +137,25 @@ export default class Pld {
 
     return fuse.search(Array.isArray(search) ? search.join(' ') : search)
       .map(result => result.item)
+  }
+
+  /**
+   * Add new version in PLD content
+   */
+  addVersion(versionInfo: VersionInfo): Version {
+    if (!semver.valid(versionInfo.version)) {
+      throw new Error('Invalid semantic version number in given Version object')
+    }
+
+    const { date } = versionInfo
+    const newVersion: Version = {
+      ...versionInfo,
+      date: date instanceof Date ? date.toISOString() : date,
+    }
+
+    this.content.versions.push(newVersion)
+
+    return newVersion
   }
 
   transformUserStories(callback: (userStory: UserStory, subset: Subset, deliverable: Deliverable) => UserStory): void {
