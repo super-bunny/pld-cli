@@ -23,7 +23,7 @@ export default commander.createCommand('increment')
   .requiredOption('-s --sections <sections...>', 'sections modified by the version')
   .requiredOption('-c --comment <comment...>', 'version comment')
   .action((options: Options, command) => getPld(command.parent?.parent?.opts())
-    .then(pld => {
+    .then(async pld => {
       const date = options.date ? new Date(options.date?.join(' ')!) : new Date()
 
       if (Number.isNaN(date.valueOf())) {
@@ -48,6 +48,7 @@ export default commander.createCommand('increment')
         printVersionCard(newVersion, {
           title: `Version ${ chalk.greenBright(`v${ newVersion.version }`) } added! ${ previousVersionMessage }`,
         })
+        await pld.saveToJsonFile()
         logger.success(`Modifications written to pld file: ${ chalk.yellow(pld.filePath) }`)
       }
     })
