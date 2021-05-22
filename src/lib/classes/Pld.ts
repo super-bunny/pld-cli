@@ -10,6 +10,8 @@ import InvalidPldSemVersion from './errors/InvalidPldSemVersion'
 
 const TAB_SIZE = 2
 
+const FIRST_VERSION_NUMBER = '0.0.0'
+
 export type UserStoryWithParents = UserStory & { deliverable: Deliverable, subset: Subset }
 
 export interface UserStoryIdGenerationOption {
@@ -162,8 +164,11 @@ export default class Pld {
 
     const { date } = versionInfo
     const newVersion: Version = {
-      ...versionInfo,
+      version: versionInfo.version,
       date: date instanceof Date ? date.toISOString() : date,
+      authors: versionInfo.authors,
+      sections: versionInfo.sections,
+      comment: versionInfo.comment,
     }
 
     this.content.versions.push(newVersion)
@@ -176,7 +181,7 @@ export default class Pld {
    */
   incrementPldVersion(versionInfo: Omit<VersionInfo, 'version'>, level: VersionNumberLevel = 'patch'): Version {
     const lastVersionNumber = this.lastVersion?.version
-    const parsedVersionNumber = semver.parse(lastVersionNumber)
+    const parsedVersionNumber = semver.parse(lastVersionNumber ?? FIRST_VERSION_NUMBER)
 
     if (!parsedVersionNumber) {
       throw new Error('Invalid semantic version number in latest version from pld file')
@@ -184,7 +189,7 @@ export default class Pld {
 
     return this.addVersion({
       ...versionInfo,
-      version: parsedVersionNumber?.inc(level).raw,
+      version: parsedVersionNumber.inc(level).raw,
     })
   }
 
