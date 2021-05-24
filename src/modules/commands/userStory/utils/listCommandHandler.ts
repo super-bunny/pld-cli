@@ -5,7 +5,7 @@ import printUserStoryCard from '../../../print/userStory'
 import GlobalOptions from '../../../../types/GlobalCmdOptions'
 import { UserStoryFilters } from '../../../../lib/classes/Pld'
 
-export default async function commandHandler<T extends UserStoryFilters>(
+export default async function listCommandHandler<T extends UserStoryFilters>(
   globalOptions: GlobalOptions,
   commandOptions: T,
 ) {

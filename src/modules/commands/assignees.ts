@@ -1,7 +1,7 @@
 import commander from 'commander'
 import search, { SearchOption } from './userStory/options/search'
 import status, { StatusOption } from './userStory/options/status'
-import commandHandler from './userStory/utils/commandHandler'
+import listCommandHandler from './userStory/utils/listCommandHandler'
 
 export type Options = StatusOption & SearchOption
 
@@ -10,7 +10,7 @@ export default commander.createCommand('assignees')
   .description('list user stories assigned to specified user')
   .addOption(status)
   .addOption(search)
-  .action((user: string[], options: Options, command) => commandHandler(command.parent?.opts(), {
+  .action((user: string[], options: Options, command) => listCommandHandler(command.parent?.opts(), {
     ...options,
     assignments: user,
   }))
